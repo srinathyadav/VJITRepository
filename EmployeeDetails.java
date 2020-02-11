@@ -1,6 +1,3 @@
-package jenkins;
-
-
 
 public class EmployeeDetails {
     String Empname;
