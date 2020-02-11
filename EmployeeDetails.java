@@ -1,4 +1,3 @@
-
 public class EmployeeDetails {
     String Empname;
     int Empid;
