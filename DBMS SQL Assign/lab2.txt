@@ -1,0 +1,117 @@
+solution for query1:
+SQL> select staff_name,lpad(staff_sal,15,'$')staff_sal from staff_master;
+
+STAFF_NAME
+--------------------------------------------------
+STAFF_SAL
+------------------------------------------------------------
+srinath_yadav
+$$$$$$$$$$18000
+
+vinay_kumar
+$$$$$$$$$$28000
+
+kishore
+$$$$$$$$$$29000
+
+
+STAFF_NAME
+--------------------------------------------------
+STAFF_SAL
+------------------------------------------------------------
+sunil
+$$$$$$$$$$21000
+
+lokesh
+$$$$$$$$$$29500
+
+solution for query 2:
+
+SQL> select student_name, to_char(student_dob,'mon,dd yyyy') as "date of birth" from student_master where to_char(student_dob,'day') like '%saturday%' or to_char(student_dob,'day') like '%sunday%';
+
+STUDENT_NAME                                       date of birth
+-------------------------------------------------- --------------------
+bunny                                              may,12 2002
+chintu                                             may,11 2002
+solution for query 3:
+SQL> select staff_name,round (months_between(sysdate,hiredate)) as "months worked" from staff_master order by "months worked";
+
+STAFF_NAME                                         months worked
+-------------------------------------------------- -------------
+kishore                                                      176
+vinay_kumar                                                  227
+sunil                                                        227
+srinath_yadav                                                228
+lokesh                                                       230
+
+solution for query 4:
+SQL> select * from staff_master where to_char(hiredate,'dd') between 1 and 15 and to_char(hiredate,'month') like '%dec%';
+
+STAFF_CODE STAFF_NAME                                         DESIGN_CODE
+---------- -------------------------------------------------- -----------
+ DEPT_CODE HIREDATE  STAFF_DOB
+---------- --------- ---------
+STAFF_ADDRESS
+--------------------------------------------------------------------------------
+  MGR_CODE  STAFF_SAL
+---------- ----------
+         5 lokesh                                                      13
+        10 12-DEC-00 25-APR-72
+hno:7-72 banglore
+      7662      29500
+
+
+solution for query 5:
+SQL> select staff_name, staff_sal, case
+  2  when Staff_sal>=50000 then 'A'
+  3  when Staff_sal>=25000 and staff_sal<50000 then 'B'
+  4  when Staff_sal>=10000 and staff_sal<25000 then 'C'
+  5  else
+  6  'D'
+  7  end case from staff_master;
+
+STAFF_NAME                                          STAFF_SAL C
+-------------------------------------------------- ---------- -
+srinath_yadav                                           18000 C
+vinay_kumar                                             28000 B
+kishore                                                 29000 B
+sunil                                                   21000 C
+lokesh                                                  29500 B
+
+solution for query 6:
+SQL> select staff_name,hiredate,to_char(hiredate,'dy') as "day" from staff_master order by to_char(hiredate,'d');
+
+STAFF_NAME                                         HIREDATE  day
+-------------------------------------------------- --------- ------------
+srinath_yadav                                      15-JAN-01 mon
+lokesh                                             12-DEC-00 tue
+kishore                                            02-JUN-05 thu
+sunil                                              01-MAR-01 thu
+vinay_kumar                                        16-FEB-01 fri
+
+
+solution for query 7:
+SQL> select instr('mississippi','i',2,3) from dual;
+
+INSTR('MISSISSIPPI','I',2,3)
+----------------------------
+                           8
+
+solution for query 8:
+
+SQL> SELECT TO_CHAR(NEXT_DAY(SYSDATE,'friday'),'DD MONTH ,YYYY') AS "PAYDATE" FROM dual WHERE NEXT_DAY(SYSDATE,'friday')<=LAST_DAY(SYSDATE) ;
+
+PAYDATE
+---------------------------------------------
+31 JANUARY   ,2020
+
+solution for query 9:
+
+SQL> SELECT STUDENT_CODE,STUDENT_NAME,DECODE(DEPT_CODE,20,'ELECTRICALS',30,'ELECTRONICS','OTHERS') DEPT_NAME FROM STUDENT_MASTER;
+
+STUDENT_CODE STUDENT_NAME                                       DEPT_NAME
+------------ -------------------------------------------------- -----------
+         202 bunny                                              OTHERS
+         211 chintu                                             ELECTRICALS
+         212 bantu                                              ELECTRONICS
+         201 sunny                                              OTHERS

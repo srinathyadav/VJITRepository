@@ -1,0 +1,159 @@
+solution for query 1:
+
+SQL> select s.staff_name,s.staff_sal,d.dept_name,d.dept_code from staff_master s,dept_master d where s.dept_code= d.dept_code and s.staff_sal>20000 order by d.dept_code;
+
+STAFF_NAME                                          STAFF_SAL
+-------------------------------------------------- ----------
+DEPT_NAME                                           DEPT_CODE
+-------------------------------------------------- ----------
+lokesh                                                  29500
+electricals                                                10
+
+vinay_kumar                                             28000
+electronics                                                20
+
+kishore                                                 29000
+electronics                                                20
+
+
+STAFF_NAME                                          STAFF_SAL
+-------------------------------------------------- ----------
+DEPT_NAME                                           DEPT_CODE
+-------------------------------------------------- ----------
+sunil                                                   21000
+abc                                                        30
+
+solution for query 2:
+SQL> select s.staff_name as "staff",s.staff_code as "staff#",m.mgr_code as "mgr#", m.mgr_name as "mgr" from staff_master s,dept_master d,manager m
+  2  where s.dept_code= d.dept_code and s.mgr_code= m.mgr_code;
+
+staff                                                  staff#       mgr#
+-------------------------------------------------- ---------- ----------
+mgr
+--------------------
+vinay_kumar                                                 2       7836
+dheeraj
+
+kishore                                                     3       7836
+dheeraj
+
+sunil                                                       4       7534
+subash
+
+
+staff                                                  staff#       mgr#
+-------------------------------------------------- ---------- ----------
+mgr
+--------------------
+lokesh                                                      5       7662
+
+venky
+
+
+solution for query 3:
+
+SQL> select s.student_code,s.student_name,b.book_code,m.book_name from student_master s, book_transactions b,book_master m where s.student_code=b.student_code and b.book_code=m.book_code and book_expected_return_date=to_char(sysdate,'dd-mon-yyyy');
+
+STUDENT_CODE STUDENT_NAME                                        BOOK_CODE
+------------ -------------------------------------------------- ----------
+BOOK_NAME
+--------------------------------------------------
+         212 bantu                                                     114
+english
+
+
+solution for query 4:
+
+SQL> select s.staff_code,s.staff_name,d.dept_name,e.design_name,b.book_code,m.book_name,b.book_issue_date from staff_master s, dept_master d, designation_master e,book_transactions b,book_master m  where s.dept_code= d.dept_code and s.staff_code= b.staff_code and b.book_code= m.book_code and s.design_code= e.design_code and b.book_issue_date>sysdate-30;
+
+STAFF_CODE STAFF_NAME
+---------- --------------------------------------------------
+DEPT_NAME
+--------------------------------------------------
+DESIGN_NAME                                         BOOK_CODE
+-------------------------------------------------- ----------
+BOOK_NAME                                          BOOK_ISSU
+-------------------------------------------------- ---------
+         5 lokesh
+electricals
+doctor                                                    111
+mathematics                                        23-JAN-20
+
+
+STAFF_CODE STAFF_NAME
+---------- --------------------------------------------------
+DEPT_NAME
+--------------------------------------------------
+DESIGN_NAME                                         BOOK_CODE
+-------------------------------------------------- ----------
+BOOK_NAME                                          BOOK_ISSU
+-------------------------------------------------- ---------
+         1 srinath_yadav
+electricals
+designer                                                  111
+mathematics                                        15-JAN-20
+
+
+STAFF_CODE STAFF_NAME
+---------- --------------------------------------------------
+DEPT_NAME
+--------------------------------------------------
+DESIGN_NAME                                         BOOK_CODE
+-------------------------------------------------- ----------
+BOOK_NAME                                          BOOK_ISSU
+-------------------------------------------------- ---------
+         2 vinay_kumar
+electronics
+professor                                                 112
+science                                            14-JAN-20
+
+
+STAFF_CODE STAFF_NAME
+---------- --------------------------------------------------
+DEPT_NAME
+--------------------------------------------------
+DESIGN_NAME                                         BOOK_CODE
+-------------------------------------------------- ----------
+BOOK_NAME                                          BOOK_ISSU
+-------------------------------------------------- ---------
+         1 srinath_yadav
+electricals
+designer                                                  113
+social&studies                                     25-JAN-20
+
+
+STAFF_CODE STAFF_NAME
+---------- --------------------------------------------------
+DEPT_NAME
+--------------------------------------------------
+DESIGN_NAME                                         BOOK_CODE
+-------------------------------------------------- ----------
+BOOK_NAME                                          BOOK_ISSU
+-------------------------------------------------- ---------
+         3 kishore
+electronics
+engineer                                                  113
+social&studies                                     20-JAN-20
+
+solution for query 6:
+
+SQL> select staff_name, staff_code, staff_sal from staff_master where staff_sal<(select avg(staff_sal) from staff_master);
+
+STAFF_NAME                                         STAFF_CODE  STAFF_SAL
+-------------------------------------------------- ---------- ----------
+srinath_yadav                                               1      18000
+sunil                                                       4      21000
+
+solution for query 7:
+
+SQL> select book_pub_author as "author", book_name from book_master where book_pub_author=(select book_pub_author from book_master group by book_pub_author having count(book_name)>1);
+
+author
+--------------------------------------------------
+BOOK_NAME
+--------------------------------------------------
+shakespeare
+english
+
+shakespeare
+skills
